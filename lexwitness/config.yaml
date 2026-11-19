@@ -1,0 +1,29 @@
+name: LexAssistant martor
+version: "2.1.0"
+slug: lexwitness
+description: Martor HA pentru LexAssistant - verifica adresa publica si tine permisul de PRIMARY (fara date pe disc)
+url: https://github.com/eugentib/lexwitness-ha
+arch:
+  - aarch64
+  - amd64
+  - armv7
+  - armhf
+  - i386
+startup: application
+boot: auto
+init: false
+options:
+  id: ""
+  key_hex: ""
+  public_health_url: "https://api.lexassistant.ro/health/ready"
+  node_endpoints: []
+  probe_interval_seconds: 60
+  probe_offset_seconds: 0
+schema:
+  id: "match(^[a-z0-9-]{2,32}$)"
+  key_hex: password?
+  public_health_url: url
+  node_endpoints:
+    - url
+  probe_interval_seconds: "int(30,900)"
+  probe_offset_seconds: "int(0,900)"
