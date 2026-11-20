@@ -89,6 +89,7 @@ class Witness:
         self.first_probe_due = now + probe_offset
         self.planned_pause = None            # {'node','boot','until'}: public failures not counted against it
         self.next_probe = now + probe_offset
+        self.report_seq = 0                  # increases with every report: a node refuses a replayed message
 
     # -- public path ------------------------------------------------------------------------------------------
     def observe(self, health, now):
@@ -123,7 +124,8 @@ class Witness:
 
     def report(self, now):
         live = self.lease if self.lease and self.lease['expires_at'] > now else None
-        return {'witness': self.id, 'witness_boot': self.boot, 'protocol': PROTOCOL,
+        self.report_seq += 1
+        return {'witness': self.id, 'witness_boot': self.boot, 'protocol': PROTOCOL, 'report_seq': self.report_seq,
                 'quarantine_left': max(0, round(self.started + QUARANTINE_SECONDS - now, 1)),
                 'public': {'node': self.public_node, 'failures': self.failures, 'down': self.public_down(now),
                            'seen_ago': None if self.public_seen_at is None else round(now - self.public_seen_at, 1)},
