@@ -1,5 +1,5 @@
 name: LexAssistant martor
-version: "2.1.1"
+version: "2.2.3"
 slug: lexwitness
 description: Martor HA pentru LexAssistant - verifica adresa publica si tine permisul de PRIMARY (fara date pe disc)
 url: https://github.com/eugentib/lexwitness-ha
